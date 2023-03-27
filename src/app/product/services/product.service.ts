@@ -12,7 +12,6 @@ export class ProductService {
 
   loadProducts() {
     const url = environment.API_ENDPOINT+'products';
-    return this.httpClient.get(url);
-    //.pipe(map(data => data))
+    return this.httpClient.get(url).pipe(map(data => data));
   }
 }

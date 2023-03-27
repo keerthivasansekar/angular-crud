@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -6,36 +7,29 @@ import { ProductService } from '../services/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, OnDestroy {
   
-  dtOptions: DataTables.Settings = {};
-  productList: any;
+  productList: any = [];
   productListSubscribe: any;
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   constructor(private productService: ProductService){
 
   }
-  
+    
   ngOnInit(): void {
     this.getProductList();
-    this.dtOptions = {
-      data: this.productList,
-      columns: [{
-        title: 'Product Name',
-        data: 'p_name'
-      }, {
-        title: 'Product Desc',
-        data: 'p_description'
-      }, {
-        title: 'Price',
-        data: 'p_price'
-      }]
-    };
   }
 
-  getProductList(){
-    this.productListSubscribe = this.productService.loadProducts().subscribe(res => {
+  ngOnDestroy(): void {
+    this.dtTrigger.unsubscribe();
+  }
+
+  getProductList(): void{
+    this.productListSubscribe = this.productService.loadProducts().subscribe((res: any) => {
       this.productList = res;
+      this.dtTrigger.next;
     });
   }
 

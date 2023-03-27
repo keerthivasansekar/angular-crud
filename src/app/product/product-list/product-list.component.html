@@ -4,7 +4,28 @@
       <h3>Product List</h3>
     </div>
     <div class="card-body">
-      <table datatable [dtOptions]="dtOptions" class="row-border hover"></table>
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="row-border hover col-12">
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of productList">
+            <td>{{ product.p_name }}</td>
+            <td>{{ product.p_description }}</td>
+            <td>₹ {{ product.p_price }}</td>
+            <td>
+                <a [routerLink]="'/product/view-product-details/'+product.p_id" class="btn btn-success btn-sm">View</a>
+                <a [routerLink]="'/product/update-product/'+product.p_id" class="btn btn-primary btn-sm ms-2">Edit</a>
+                <a class="btn btn-danger btn-sm ms-2">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
