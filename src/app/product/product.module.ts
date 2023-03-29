@@ -6,6 +6,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductCreateComponent } from './product-create/product-create.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { DataTablesModule } from 'angular-datatables';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +18,9 @@ import { DataTablesModule } from 'angular-datatables';
   imports: [
     CommonModule,
     ProductRoutingModule,
-    DataTablesModule
+    DataTablesModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductModule { }
