@@ -5,18 +5,33 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <form>
+        <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value, false)">
           <div class="col-4 mb-3">
             <label for="product-name" class="form-label">Product name</label>
-            <input type="text" class="form-control" name="product-name" id="product-name" />
+            <input type="text" class="form-control" [ngClass]="{'is-valid': productForm.controls['name'].errors === null, 'is-invalid': productForm.controls['name'].errors !== null && productForm.controls['name'].touched === true }" formControlName="name" id="product-name" aria-describedby="productNameFeedback" />
+            <div id="productNameFeedback" class="invalid-feedback">
+              <p *ngIf="productForm.controls['name'].errors?.['required']">Product name is required</p>
+              <p *ngIf="productForm.controls['name'].errors?.['minlength']">Product name must contain atleast 3 characters</p>
+              <p *ngIf="productForm.controls['name'].errors?.['maxlength']">Product name must not exceed 50 characters</p>
+            </div>
           </div>
           <div class="col-6 mb-3">
             <label for="product-description" class="form-label">Product description</label>
-            <textarea class="form-control" name="product-description" id="product-description" rows="5"></textarea>
+            <textarea class="form-control" [ngClass]="{'is-valid': productForm.controls['description'].errors === null, 'is-invalid': productForm.controls['description'].errors !== null && productForm.controls['description'].touched === true }" formControlName="description" id="product-description" rows="5" aria-describedby="productDescriptionFeedback"></textarea>
+            <div id="productDescriptionFeedback" class="invalid-feedback">
+              <p *ngIf="productForm.controls['description'].errors?.['required']">Product description is required</p>
+              <p *ngIf="productForm.controls['description'].errors?.['minlength']">Product description must contain atleast 10 characters</p>
+              <p *ngIf="productForm.controls['description'].errors?.['maxlength']">Product name must not exceed 500 characters</p>
+            </div>
           </div>
-          <div class="col-1 mb-3">
+          <div class="col-3 mb-3">
             <label for="product-price" class="form-label">Product price</label>
-            <input type="number" class="form-control" name="product-price" id="product-price" />
+            <input type="number" class="form-control" [ngClass]="{'is-valid': productForm.controls['price'].errors === null, 'is-invalid': productForm.controls['price'].errors !== null && productForm.controls['price'].touched === true }" formControlName="price" id="product-price" aria-describedby="productPriceFeedback" />
+            <div id="productPriceFeedback" class="invalid-feedback">
+              <p *ngIf="productForm.controls['price'].errors?.['required']">Product price is required</p>
+              <p *ngIf="productForm.controls['price'].errors?.['minlength']">Product price must contain atleast 1 digit</p>
+              <p *ngIf="productForm.controls['price'].errors?.['maxlength']">Product name must not exceed 8 digits</p>
+            </div>
           </div>
           <button type="submit" class="btn btn-primary">Save</button>
         </form>
