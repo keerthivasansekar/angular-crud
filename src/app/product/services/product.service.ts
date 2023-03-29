@@ -33,4 +33,9 @@ export class ProductService {
     return this.httpClient.post<HttpResponse>(url, data).pipe(map(data => data));
   }
 
+  deleteProduct(productId: any): Observable<HttpResponse> {
+    const url = environment.API_ENDPOINT+'products/delete/'+productId;
+    return this.httpClient.get<HttpResponse>(url).pipe(map(data => data));
+  }
+
 }

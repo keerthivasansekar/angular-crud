@@ -1,5 +1,6 @@
 import { Component, OnInit,OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
+import Swal from 'sweetalert2';
 import { ProductService } from '../services/product.service';
 
 @Component({
@@ -31,6 +32,32 @@ export class ProductListComponent implements OnInit {
       this.productList = res;
       this.dtTrigger.next(null);
     });
+  }
+
+  deleteProduct(params: any){
+    const that = this;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        that.productService.deleteProduct(params).subscribe(res => {
+          if (res.result === 'success') {
+            this.getProductList();
+            Swal.fire(
+              'Deleted!',
+              'Your file has been deleted.',
+              'success'
+            );
+          }
+        }); 
+      }
+    })
   }
 
 }

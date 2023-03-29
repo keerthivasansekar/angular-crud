@@ -21,7 +21,7 @@
             <td>
                 <a [routerLink]="'/product/view-product-details/'+product.p_id" class="btn btn-success btn-sm">View</a>
                 <a [routerLink]="'/product/update-product/'+product.p_id" class="btn btn-primary btn-sm ms-2">Edit</a>
-                <a class="btn btn-danger btn-sm ms-2">Delete</a>
+                <a class="btn btn-danger btn-sm ms-2" (click)="deleteProduct(product.p_id)">Delete</a>
             </td>
           </tr>
         </tbody>
