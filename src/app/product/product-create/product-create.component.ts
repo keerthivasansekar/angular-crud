@@ -13,6 +13,7 @@ export class ProductCreateComponent implements OnInit {
   // @ts-ignore
   productForm: FormGroup;
   productId: any;
+  buttonText = 'Create Product'
 
   constructor(private productService: ProductService,
               private formBuilder: FormBuilder,
@@ -63,6 +64,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   loadProductDetails(productId: any){
+    this.buttonText = 'Update Product'
     this.productService.loadProductInfo(productId).subscribe(res => {
       this.productForm.controls['name'].setValue(res.p_name);
       this.productForm.controls['description'].setValue(res.p_description);
