@@ -5,7 +5,7 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value, false)">
+        <form [formGroup]="productForm" (ngSubmit)="createProduct(productForm.value)">
           <div class="col-4 mb-3">
             <label for="product-name" class="form-label">Product name</label>
             <input type="text" class="form-control" [ngClass]="{'is-valid': productForm.controls['name'].errors === null, 'is-invalid': productForm.controls['name'].errors !== null && productForm.controls['name'].touched === true }" formControlName="name" id="product-name" aria-describedby="productNameFeedback" />

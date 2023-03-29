@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment.development';
 import { HttpResponse } from '../models/http-response';
+import { Product } from '../models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,24 @@ export class ProductService {
 
   constructor(private httpClient: HttpClient) { }
 
+  createProduct(data: any): Observable<HttpResponse> {
+    const url = environment.API_ENDPOINT+'products/add';
+    return this.httpClient.post<HttpResponse>(url, data).pipe(map(data => data));
+  }
+
   loadProducts() {
     const url = environment.API_ENDPOINT+'products';
     return this.httpClient.get(url).pipe(map(data => data));
   }
 
-  createProduct(data: any): Observable<HttpResponse> {
-    const url = environment.API_ENDPOINT+'products/add';
+  loadProductInfo(productId: any): Observable<Product> {
+    const url = environment.API_ENDPOINT+'products/'+productId;
+    return this.httpClient.get<Product>(url).pipe(map(data => data));
+  }
+
+  updateProductInfo(data:any): Observable<HttpResponse> {
+    const url = environment.API_ENDPOINT+'products/edit';
     return this.httpClient.post<HttpResponse>(url, data).pipe(map(data => data));
   }
+
 }
